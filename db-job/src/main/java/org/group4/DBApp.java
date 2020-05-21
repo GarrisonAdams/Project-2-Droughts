@@ -22,7 +22,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
  * Hello world!
  *
  */
-public class App 
+public class DBApp 
 {
     public static void main(String[] args)
     {
