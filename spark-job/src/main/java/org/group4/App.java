@@ -1,12 +1,15 @@
 package org.group4;
 
 import org.apache.spark.sql.SparkSession;
+import org.group4.spark.sparkOperations;
+import org.group4.struct.County;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.spark.sql.AnalysisException;
 import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 
 import static org.apache.spark.sql.functions.*;
@@ -74,8 +77,10 @@ public class App {
         // // Dataset<Row> data = session.read().json("users.json").cache();
         Dataset<Row> data2 = session.read().option("header", "true").option("multiline", "true").csv("us-droughts.csv")
                 .cache();
-
-        bucketOperations.datasetToBucket(data2.limit(50), "output.csv",
+        Dataset<County> countyData = session.read().option("header", "true").option("multiline", "true")
+                .csv("us-droughts.csv").as(Encoders.bean(County.class));
+        sparkOperations SparkOperations = new sparkOperations(countyData);
+        bucketOperations.datasetToBucket(SparkOperations.countCounties(countyData.limit(50)), "output.csv",
                 "spark-job/src/main/resources/textFileFromSparkJob.csv");
         // bucketOperations.getFromBucket("output/output.csv",
         // "spark-job/src/main/resources/downloadedTextFile2.csv");
