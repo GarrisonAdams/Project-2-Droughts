@@ -37,6 +37,6 @@ public class sparkOperations {
   }
 
   public Dataset<County> averageDrought(Dataset<County> counties) {
-    return counties.agg
+    return counties;
   }
 }
