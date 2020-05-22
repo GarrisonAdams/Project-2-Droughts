@@ -34,5 +34,6 @@
   <modules>
     <module>spark-job</module>
     <module>db-job</module>
+    <module>servlet</module>
   </modules>
 </project>
