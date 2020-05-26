@@ -22,7 +22,7 @@ public class County implements Serializable {
   private Date validStart;
   private Date validEnd;
 
-  public county(String releaseDate, String fips, String county, String state, int nONE, int d0, int d1, int d2, int d3,
+  public County(String releaseDate, String fips, String county, String state, int nONE, int d0, int d1, int d2, int d3,
       int d4, Date validStart, Date validEnd) {
     this.releaseDate = releaseDate;
     this.fips = fips;
