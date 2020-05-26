@@ -16,6 +16,7 @@ public class App
 	public static void main(String[] args) {
 		AWSCredentials credentials_profile = null;		
 		try {
+            //create profile with default credentials
 			credentials_profile = new ProfileCredentialsProvider("default").getCredentials();
         } catch (Exception e) {
             throw new AmazonClientException(
@@ -33,7 +34,7 @@ public class App
 	    StepFactory stepFactory = new StepFactory();
 	    StepConfig runBashScript = new StepConfig()
 	    		.withName("Run a bash script") 
-	    		.withHadoopJarStep(stepFactory.newScriptRunnerStep("s3://jeffgoll/emr-scripts/create_users.sh"))
+	    		.withHadoopJarStep(stepFactory.newScriptRunnerStep("s3://jeffgoll/emr-scripts/create_users.sh"))//this needs to be replaced with our own bash file
 	    		.withActionOnFailure("CONTINUE");
 
 	    // Run a custom jar file as a step
