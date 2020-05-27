@@ -21,4 +21,12 @@ This is Group 4's project 2 repository.  Members are Mason, Jacob, Garrison, and
 #### Reads query results from S3 logs
 #### Stores data on SQL RDBMS hosted on AWS EC2 with Docker
 
+Usage
+
+    mvn clean packge
+
+to run sub modules:
+
+    mvn exec:java -pl [module artifactId] -Dexec.mainClass=[module mainclass]
+
 

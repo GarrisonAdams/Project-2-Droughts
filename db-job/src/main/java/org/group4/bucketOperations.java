@@ -29,22 +29,22 @@ public class bucketOperations {
   private static AmazonS3 s3client = AmazonS3ClientBuilder.standard()
       .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2).build();
 
-  public static void datasetToBucket(Dataset<County> dataRow, String bucketFileName, String fileName) throws IOException {
+  public static void datasetToBucket(Dataset<Row> dataRow, String bucketFileName, String fileName) throws IOException {
     turnIntoCSV(dataRow, fileName);
     putInBucket(bucketFileName, fileName);
   }
 
-  private static void turnIntoCSV(Dataset<County> dataRow, String fileName) throws IOException {
+  private static void turnIntoCSV(Dataset<Row> dataRow, String fileName) throws IOException {
     BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
 
     String columnList = String.join(",", dataRow.columns());
     
-    bw.append(columnList);
+    bw.append(columnList + "\n");
 
-    for (County county : dataRow.collectAsList()) 
+    for (Row row : dataRow.collectAsList()) 
     {
 
-      bw.append(county.toString());
+      bw.append(row.toString().replace("[","").replace("]","") + "\n");
     }
 
     bw.close();
