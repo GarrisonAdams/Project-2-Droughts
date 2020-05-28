@@ -8,60 +8,87 @@
   </parent>
 
   <groupId>org.group4</groupId>
-  <artifactId>db-job</artifactId>
+  <artifactId>servlet-job</artifactId>
   <version>0.0.1</version>
 
-  <name>db-job</name>
+  <name>servlet-job</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
     <exec.mainClass>
-      org.group4.App
+      org.group4.Server
     </exec.mainClass>
   </properties>
-
   <dependencies>
+    <dependency>
+      <groupId>io.github.cdimascio</groupId>
+      <artifactId>java-dotenv</artifactId>
+      <version>5.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk</artifactId>
+      <version>1.11.163</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-aws -->
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-aws</artifactId>
+      <version>3.2.1</version>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+
     <dependency>
-      <groupId>org.group4</groupId>
-      <artifactId>spark-job</artifactId>
-      <version>0.0.1</version>
-    </dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
+			<version>9.0.34</version>
+		</dependency>
+
     <dependency>
-      <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk</artifactId>
-      <version>1.11.785</version>
-    </dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<version>9.0.34</version>
+		</dependency>
+
   </dependencies>
 
   <build>
     <pluginManagement>
       <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
-        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+
+      <plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+
+
         <plugin>
-          <artifactId>maven-assembly-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.2.0</version>
           <configuration>
             <archive>
               <manifest>
-                <mainClass>org.group4.App</mainClass>
+                <addClasspath>true</addClasspath>
+                <classpathPrefix>dependency/</classpathPrefix>
+                <mainClass>org.group4.Servlet</mainClass>
               </manifest>
             </archive>
-            <descriptorRefs>
-              <descriptorRef>jar-with-dependencies</descriptorRef>
-            </descriptorRefs>
           </configuration>
         </plugin>
-
+        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
@@ -79,22 +106,6 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
         </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.2.0</version>
-          <configuration>
-            <archive>
-              <manifest>
-                <addClasspath>true</addClasspath>
-                <classpathPrefix>dependency/</classpathPrefix>
-                <mainClass>org.group4.App</mainClass>
-              </manifest>
-            </archive>
-          </configuration>
-        </plugin>
-
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
           <version>2.5.2</version>
@@ -113,17 +124,16 @@
           <version>3.0.0</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.2.0</version>
+          <artifactId>maven-assembly-plugin</artifactId>
           <configuration>
             <archive>
               <manifest>
-                <addClasspath>true</addClasspath>
-                <classpathPrefix>dependency/</classpathPrefix>
-                <mainClass>org.group4.App</mainClass>
+                <mainClass>org.group4.Servlet</mainClass>
               </manifest>
             </archive>
+            <descriptorRefs>
+              <descriptorRef>jar-with-dependencies</descriptorRef>
+            </descriptorRefs>
           </configuration>
         </plugin>
       </plugins>

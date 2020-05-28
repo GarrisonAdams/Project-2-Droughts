@@ -34,7 +34,11 @@
   <modules>
     <module>spark-job</module>
     <module>db-job</module>
+<<<<<<< HEAD
     <module>servlet</module>
     <module>emr-job</module>
+=======
+    <module>servlet-job</module>
+>>>>>>> AddingServlets
   </modules>
 </project>
