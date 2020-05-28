@@ -40,12 +40,9 @@ public class bucketOperations {
   }
 
   private static void turnIntoCSV(Dataset<Row> dataRow, String fileName) throws IOException {
-
     BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
 
-
-    String columnList = String.join(",", dataRow.columns()).replace("(","").replace(")","");
-    
+    String columnList = String.join(",", dataRow.columns());
     
     bw.append(columnList + "\n");
 
