@@ -70,7 +70,7 @@ public class App {
                 // FileUtils.copyInputStreamToFile(inputStream, new
                 // File("spark-job/src/main/resources/downloadedTextFile.csv"));
                 // initiate spark here
-                SparkSession session = SparkSession.builder().appName("spark-job").master("local").getOrCreate();
+                SparkSession session = SparkSession.builder().appName("spark-job").getOrCreate();
                 // // Dataset<Row> s3Data =
                 // session.readStream().csv(s3object.getObjectContent())
                 // // Dataset<Row> data = session.read().json("users.json").cache();
@@ -92,8 +92,14 @@ public class App {
                 // countyData.groupBy("county").count().limit(105).show();
                 // countyData.printSchema();
                 // SparkOperations.getDataStorageTypeCounty("countDrought").show();
-                SparkOperations.getDataStorageTypeRow("yearWithMostDroughts").limit(20).show();
-
+                Dataset<Row> r = SparkOperations.getDataStorageTypeRow("yearWithMostDroughts");
+                //r.coalesce(1).write().option("header", "true").csv("output.csv");
+                /*
+                File x = new File("output/part*");
+                File newFile = new File("output.csv");
+                x.renameTo(newFile);
+                */
+                bucketOperations.datasetToBucket(r.coalesce(1),"outputYearWithMostDroughts.csv", "outputYearWithMostDroughts.csv");
                 // bucketOperations.datasetToBucket(SparkOperations.countCounties(countyData.limit(50));
 
                 // "output.csv",
