@@ -7,6 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -14,8 +17,10 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -82,5 +87,17 @@ public class bucketOperations {
       System.err.println(e.getMessage());
       System.exit(1);
     }
+  }
+
+  public static ArrayList<String> getContentsOfBucket()
+  {
+    ArrayList<String> contentsOfBucket = new ArrayList<String>();
+        ObjectListing objectListing = s3client.listObjects("usdroughtsbycountybucket");
+        for(S3ObjectSummary os : objectListing.getObjectSummaries()) {
+            contentsOfBucket.add(os.getKey());
+        }
+    
+        return contentsOfBucket;
+
   }
 }

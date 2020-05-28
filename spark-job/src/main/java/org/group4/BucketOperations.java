@@ -23,11 +23,12 @@ import org.group4.struct.County;
 
 public class bucketOperations {
   private static Dotenv dotenv = Dotenv.load();
-  private static AWSCredentials credentials = new BasicAWSCredentials(dotenv.get("S3_ACCESS_KEY"),
-      dotenv.get("S3_SECRET_KEY"));
+   private static AWSCredentials credentials = new BasicAWSCredentials(dotenv.get("S3_ACCESS_KEY"),
+       dotenv.get("S3_SECRET_KEY"));
 
   private static AmazonS3 s3client = AmazonS3ClientBuilder.standard()
-      .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2).build();
+      //.withCredentials(new AWSStaticCredentialsProvider(credentials))
+      .withRegion(Regions.US_EAST_2).build();
 
   public static void datasetToBucket(Dataset<County> dataRow, String bucketFileName, String fileName) throws IOException {
     turnIntoCSV(dataRow, fileName);
