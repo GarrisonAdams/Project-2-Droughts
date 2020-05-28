@@ -3,6 +3,7 @@ package org.group4;
 import org.apache.spark.sql.SparkSession;
 import org.group4.spark.sparkOperations;
 import org.group4.struct.County;
+import org.group4.struct.CountyInfo;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
@@ -73,14 +74,30 @@ public class App {
                 // // Dataset<Row> s3Data =
                 // session.readStream().csv(s3object.getObjectContent())
                 // // Dataset<Row> data = session.read().json("users.json").cache();
-                Dataset<Row> data2 = session.read().option("header", "true").option("multiline", "true")
-                                .csv("us-droughts.csv").cache();
-                Dataset<County> countyData = session.read().option("header", "true").option("multiline", "true")
-                                .csv("us-droughts.csv").as(Encoders.bean(County.class)).persist();
+                // Dataset<Row> data2 = session.read().option("header",
+                // "true").option("multiline", "true")
+                // .csv("us-droughts.csv").cache();
+                Dataset<Row> countyData = session.read().option("header", "true").option("multiline", "true")
+                                .option("sep", ",").option("inferSchema", "true").csv("us-droughts.csv").toDF();
 
-                sparkOperations SparkOperations = new sparkOperations(countyData);
-                bucketOperations.datasetToBucket(SparkOperations.countCounties(countyData.limit(50)), "output.csv",
-                                "spark-job/src/main/resources/textFileFromSparkJob.csv");
+                Dataset<Row> countyInfo = session.read().option("header", "true").option("multiline", "true")
+                                .option("sep", ",").option("inferSchema", "true").csv("county_info_2016.csv").toDF();
+
+                Dataset<County> countyMerged = countyData.join(countyInfo, "FIPS").drop("NAME")
+                                .drop("domStatisticFormatID").drop("ANSICODE").drop("USPS")
+                                .as(Encoders.bean(County.class)).persist();
+                // System.out.println(countyMerged.count());
+                sparkOperations SparkOperations = new sparkOperations(countyMerged);
+
+                // countyData.groupBy("county").count().limit(105).show();
+                // countyData.printSchema();
+                // SparkOperations.getDataStorageTypeCounty("countDrought").show();
+                SparkOperations.getDataStorageTypeRow("yearWithMostDroughts").limit(20).show();
+
+                // bucketOperations.datasetToBucket(SparkOperations.countCounties(countyData.limit(50));
+
+                // "output.csv",
+                // "spark-job/src/main/resources/textFileFromSparkJob.csv");
                 // bucketOperations.getFromBucket("output/output.csv",
                 // "spark-job/src/main/resources/downloadedTextFile2.csv");
 
