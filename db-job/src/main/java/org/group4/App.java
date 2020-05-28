@@ -11,9 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import org.group4.DatabaseConnector;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -30,7 +30,7 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 //import org.apache.spark.sql.SparkSession;
-import org.group4.struct.County;
+//import org.group4.struct.County;
 
 
 /**
@@ -194,13 +194,14 @@ public class App
   
     public static String getColumnDataType(String columnName)
     {
-               if(columnName.equals("NONE") || columnName.equals("D0")
-               || columnName.equals("D1")   || columnName.equals("D2") 
-               || columnName.equals("D3")   || columnName.equals("D4")) {
+        String[] doubleColumns = {"NONE","D0","D1","D2","D3","D4","ALAND",
+            "AWATER","AWATER_SQMI","ALAND_SQMI","INTPTLAT","INTPTLONG"};
+        String[] dateColumns = {"releaseDate","validStart","validEnd"};
+
+               if(Arrays.asList(doubleColumns).contains(columnName)) {
                    return "DOUBLE PRECISION";
                }
-               else if(columnName.equals("releaseDate") || columnName.equals("validStart") 
-                    || columnName.equals("validEnd")) { 
+               else if(Arrays.asList(dateColumns).contains(columnName)) { 
                         return "DATE";
                     }
                 else {

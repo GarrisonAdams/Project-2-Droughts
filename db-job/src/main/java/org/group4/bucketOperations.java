@@ -24,7 +24,7 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.group4.struct.County;
+//import org.group4.struct.County;
 
 public class bucketOperations {
   private static Dotenv dotenv = Dotenv.load();
