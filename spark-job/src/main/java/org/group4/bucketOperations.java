@@ -33,20 +33,19 @@ public class bucketOperations {
     putInBucket(bucketFileName, fileName);
   }
 
-  private static void turnIntoCSV(Dataset<Row> dataRow, String fileName) throws IOException {
+  public static void turnIntoCSV(Dataset<Row> dataRow, String fileName) throws IOException {
     BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
 
-    for (Row row : dataRow.collectAsList()) {
-      StringBuilder s = new StringBuilder();
-      for (int i = 0; i < row.length(); i++) {
-        if (i == row.length()) {
-          s.append(row.getString(i));
-        } else {
-          s.append(row.getString(i) + ",");
-        }
-      }
 
-      bw.append(s + "\n");
+    String columnList = String.join(",", dataRow.columns()).replace("(","").replace(")","");
+    
+    
+    bw.append(columnList + "\n");
+
+    for (Row row : dataRow.collectAsList()) 
+    {
+
+      bw.append(row.toString().replace("[","").replace("]","") + "\n");
     }
 
     bw.close();
