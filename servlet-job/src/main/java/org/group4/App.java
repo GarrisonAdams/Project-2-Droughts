@@ -1,4 +1,4 @@
-package group4;
+package org.group4;
 
 /**
  * Hello world!

@@ -17,7 +17,7 @@ public class Server {
         tomcat.setPort(8080);
         tomcat.getConnector();
         tomcat.addWebapp("/project2", new File("servlet/src/main/resources").getAbsolutePath());
-		tomcat.addServlet("/project2", "DroughtsServlet", new DroughtServlet()).addMapping("/Droughts");
+//		tomcat.addServlet("/project2", "DroughtsServlet", new DroughtServlet()).addMapping("/Droughts");
 
         tomcat.start();
 

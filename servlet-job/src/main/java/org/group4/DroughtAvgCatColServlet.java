@@ -1,4 +1,4 @@
-package sparkproj;
+package org.group4;
 
 import java.io.IOException;
 
@@ -8,9 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.spark.SparkConf;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.types.IntegerType;
 
-@WebServlet("/DroughtLevelServlet")
-public class DroughtLevelServlet extends HttpServlet {
+import static org.apache.spark.sql.functions.*;
+
+
+
+@WebServlet("/DroughtAvgCatColServlet")
+public class DroughtAvgCatColServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		  // Set response content type
@@ -18,16 +27,21 @@ public class DroughtLevelServlet extends HttpServlet {
 
 
 		resp.getWriter().println("Hello!");
-		String var = req.getParameter("DLevel");
-		String num = req.getParameter("ONum");
+		String cat = req.getParameter("DCat");
+		String col = req.getParameter("DCol");
+		String num = req.getParameter("DNum");
 		
 		int rnum = 100;
 		if(!num.equals(""))
 		{
 			rnum = Integer.parseInt(num);
 		}
-		System.out.println("Get Request = " + var);
-		resp.getWriter().println("Draught Level var: " + var);
+		System.out.println("Get Request Cat= " + cat);
+		System.out.println("Get Request Cat= " + col);
+
+		resp.getWriter().println("Draught Level cat: " + cat);
+		resp.getWriter().println("Draught Level col: " + col);
+
 		//group wind from lowest to highest based on browser request
 		//************************************************ */
 		//Next Steps
@@ -45,6 +59,5 @@ public class DroughtLevelServlet extends HttpServlet {
 
 
 	}
+
 }
-
-
