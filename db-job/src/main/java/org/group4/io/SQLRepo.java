@@ -8,7 +8,7 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
 public class SQLRepo {
-  public static void insertIntoSQLDatabase(Dataset<Row> countyData) throws SQLException {
+  public static void insertIntoSQLDatabase(String countyData) throws SQLException {
     try (Connection conn = SQLSource.getConnection();) {
       Statement statement = conn.createStatement();
 
