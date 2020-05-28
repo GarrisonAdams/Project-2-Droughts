@@ -26,7 +26,7 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 //import org.group4.struct.County;
 
-public class bucketOperations {
+public class BucketOperations {
   private static Dotenv dotenv = Dotenv.load();
   private static AWSCredentials credentials = new BasicAWSCredentials(dotenv.get("S3_ACCESS_KEY"),
       dotenv.get("S3_SECRET_KEY"));
@@ -43,16 +43,13 @@ public class bucketOperations {
 
     BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
 
+    String columnList = String.join(",", dataRow.columns()).replace("(", "").replace(")", "");
 
-    String columnList = String.join(",", dataRow.columns()).replace("(","").replace(")","");
-    
-    
     bw.append(columnList + "\n");
 
-    for (Row row : dataRow.collectAsList()) 
-    {
+    for (Row row : dataRow.collectAsList()) {
 
-      bw.append(row.toString().replace("[","").replace("]","") + "\n");
+      bw.append(row.toString().replace("[", "").replace("]", "") + "\n");
     }
 
     bw.close();
@@ -92,15 +89,14 @@ public class bucketOperations {
     }
   }
 
-  public static ArrayList<String> getContentsOfBucket()
-  {
+  public static ArrayList<String> getContentsOfBucket() {
     ArrayList<String> contentsOfBucket = new ArrayList<String>();
-        ObjectListing objectListing = s3client.listObjects("usdroughtsbycountybucket");
-        for(S3ObjectSummary os : objectListing.getObjectSummaries()) {
-            contentsOfBucket.add(os.getKey());
-        }
-    
-        return contentsOfBucket;
+    ObjectListing objectListing = s3client.listObjects("usdroughtsbycountybucket");
+    for (S3ObjectSummary os : objectListing.getObjectSummaries()) {
+      contentsOfBucket.add(os.getKey());
+    }
+
+    return contentsOfBucket;
 
   }
 }
