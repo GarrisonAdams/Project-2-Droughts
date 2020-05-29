@@ -76,30 +76,44 @@ public class sparkOperations {
 
   // 2000 rows data
   public Dataset<Row> avgDrought(Dataset<County> counties) {
-    return counties.groupBy("county", "state", "fips").avg("D0", "D1", "D2", "D3", "D4");
+    return counties.groupBy("county", "state", "fips").avg("D0", "D1", "D2", "D3", "D4").orderBy(desc("avg(D0)");
   }
 
   // 2000 rows data
   public Dataset<Row> waterToLandRatioCounty(Dataset<County> counties) {
     return counties.withColumn("waterToLandRatio", counties.col("AWATER_SQMI").divide(counties.col("ALAND_SQMI")))
-        .groupBy("county").count();
+        .groupBy("county").avg("waterToLandRatio").orderBy(desc("avg(waterToLandRatio)"));
   }
 
   // 50 rows data
   public Dataset<Row> waterToLandRatioState(Dataset<County> counties) {
     return counties.withColumn("waterToLandRatio", counties.col("AWATER_SQMI").divide(counties.col("ALAND_SQMI")))
-        .groupBy("state").count();
+        .groupBy("state").avg("waterToLandRatio").orderBy(desc("avg(waterToLandRatio)"));
+  }
+
+  public Dataset<Row> percentageWaterCounty(Dataset<County> counties) {
+    return counties
+        .withColumn("percentageWaterCounty",
+            counties.col("AWATER_SQMI").divide(counties.col("AWATER_SQMI").plus(counties.col("ALAND_SQMI"))))
+        .groupBy("county").avg("percentageWaterCounty").orderBy(desc("avg(percentageWaterCounty)"));
+  }
+
+  public Dataset<Row> percentageWaterState(Dataset<County> counties) {
+    return counties
+        .withColumn("percentageWaterCounty",
+            counties.col("AWATER_SQMI").divide(counties.col("AWATER_SQMI").plus(counties.col("ALAND_SQMI"))))
+        .groupBy("state").avg("percentageWaterCounty").orderBy(desc("avg(percentageWaterCounty)"));
   }
   // where do the droughts occur
 
   // what states get droughts the most often 50 rows data
   public Dataset<Row> mostDroughtStates(Dataset<County> counties) {
-    return counties.groupBy("state").avg("D0", "D1", "D2", "D3", "D4");
+    return counties.groupBy("state").avg("D0", "D1", "D2", "D3", "D4").orderBy(desc("avg(D0)");
   }
 
   // year with most droughts 16 rows of data
   public Dataset<Row> yearWithMostDroughts(Dataset<County> counties) {
-    return counties.groupBy(year(col("releaseDate"))).avg("D0", "D1", "D2", "D3", "D4");
+    return counties.groupBy(year(col("releaseDate"))).avg("D0", "D1", "D2", "D3", "D4").orderBy(desc("avg(D0)"));
   }
 
   // public Dataset<County>

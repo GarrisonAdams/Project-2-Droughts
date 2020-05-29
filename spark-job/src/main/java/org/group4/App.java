@@ -18,8 +18,6 @@ public class App {
         public static void main(String[] args) throws AnalysisException, IOException {
                 // SparkSession session =
                 // SparkSession.builder().appName("spark-job").getOrCreate();
-                BucketOperations.getFromBucket("usdroughtsbycountydata", "us-droughts.csv");
-                BucketOperations.getFromBucket("usdroughtsbycountydata", "county_info_2016.csv");
                 SparkSession session = SparkSession.builder().appName("spark-job").master("local").getOrCreate();
                 Dataset<Row> countyData = session.read().option("header", "true").option("multiline", "true")
                                 .option("sep", ",").option("inferSchema", "true").csv("us-droughts.csv").toDF();
