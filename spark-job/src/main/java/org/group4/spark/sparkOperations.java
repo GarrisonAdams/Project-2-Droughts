@@ -15,14 +15,19 @@ public class sparkOperations {
 
   public sparkOperations(Dataset<County> counties) {
     this.counties = counties;
-    // dataStorageTypeCounty.put("countDrought", countDrought(counties, "D4"));
-    // dataStorageTypeRow.put("avgDroughtCol", avgDroughtCol(counties, "D3"));
-    // dataStorageTypeRow.put("avgDrought", avgDrought(counties));
-    // dataStorageTypeRow.put("waterToLandRatio", waterToLandRatio(counties));
-    // dataStorageTypeRow.put("yearWithMostDroughts",
-    // yearWithMostDroughts(counties));
-
+    dataStorageTypeCounty.put("countDrought", countDrought(counties, "D3"));
+    dataStorageTypeCounty.put("specificCountyData", specificCountyData(counties, "Harris"));
+    dataStorageTypeCounty.put("specificStateData", specificStateData(counties, "TX"));
+    dataStorageTypeRow.put("countCounties", countCounties(counties));
+    dataStorageTypeRow.put("avgDroughtCol", avgDroughtCol(counties, "D3"));
+    dataStorageTypeRow.put("avgDrought", avgDrought(counties));
+    dataStorageTypeRow.put("waterToLandRatioCounty", waterToLandRatioCounty(counties));
     dataStorageTypeRow.put("waterToLandRatioState", waterToLandRatioState(counties));
+    dataStorageTypeRow.put("percentageWaterCounty", percentageWaterCounty(counties));
+    dataStorageTypeRow.put("percentageWaterState", percentageWaterState(counties));
+    dataStorageTypeRow.put("mostDroughtsCounty", mostDroughtsCounty(counties));
+    dataStorageTypeRow.put("mostDroughtsStates", mostDroughtsStates(counties));
+    dataStorageTypeRow.put("yearWithMostDroughts", yearWithMostDroughts(counties));
   }
 
   public LinkedHashMap<String, Dataset<County>> getDataStorageTypeCounty() {
@@ -49,7 +54,7 @@ public class sparkOperations {
     this.dataStorageTypeRow = dataStorageTypeRow;
   }
 
-  //
+  // =====================================================================================================================
   public Dataset<County> countDrought(Dataset<County> counties, String droughtLevel) {
     return counties.filter(col(droughtLevel).gt(0));
   }
@@ -76,7 +81,7 @@ public class sparkOperations {
 
   // 2000 rows data
   public Dataset<Row> avgDrought(Dataset<County> counties) {
-    return counties.groupBy("county", "state", "fips").avg("D0", "D1", "D2", "D3", "D4").orderBy(desc("avg(D0)");
+    return counties.groupBy("county", "state", "fips").avg("D0", "D1", "D2", "D3", "D4").orderBy(desc("avg(D0)"));
   }
 
   // 2000 rows data
@@ -107,8 +112,13 @@ public class sparkOperations {
   // where do the droughts occur
 
   // what states get droughts the most often 50 rows data
-  public Dataset<Row> mostDroughtStates(Dataset<County> counties) {
-    return counties.groupBy("state").avg("D0", "D1", "D2", "D3", "D4").orderBy(desc("avg(D0)");
+
+  public Dataset<Row> mostDroughtsCounty(Dataset<County> counties) {
+    return counties.groupBy("county").avg("D0", "D1", "D2", "D3", "D4").orderBy(desc("avg(D0)"));
+  }
+
+  public Dataset<Row> mostDroughtsStates(Dataset<County> counties) {
+    return counties.groupBy("state").avg("D0", "D1", "D2", "D3", "D4").orderBy(desc("avg(D0)"));
   }
 
   // year with most droughts 16 rows of data

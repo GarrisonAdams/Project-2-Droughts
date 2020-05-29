@@ -25,6 +25,7 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 //import org.group4.struct.County;
+import org.group4.struct.County;
 
 public class BucketOperations {
   private static Dotenv dotenv = Dotenv.load();
@@ -39,26 +40,34 @@ public class BucketOperations {
     putInBucket(bucketFileName, fileName);
   }
 
-  private static void turnIntoCSV(Dataset<Row> dataRow, String fileName) throws IOException {
+  public static void datasetToBucketCounty(Dataset<County> dataCounty, String bucketFileName, String fileName)
+      throws IOException {
+    turnIntoCSVCounty(dataCounty, fileName);
+    putInBucket(bucketFileName, fileName);
+  }
 
+  private static void turnIntoCSVCounty(Dataset<County> dataCounty, String fileName) throws IOException {
     BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
-
-    String columnList = String.join(",", dataRow.columns()).replace("(", "").replace(")", "");
-
+    String columnList = String.join(",", dataCounty.columns()).replace("(", "").replace(")", "");
     bw.append(columnList + "\n");
+    for (County county : dataCounty.collectAsList()) {
+      bw.append(county.toString().replace("[", "").replace("]", "") + "\n");
+    }
+    bw.close();
+  }
 
+  private static void turnIntoCSV(Dataset<Row> dataRow, String fileName) throws IOException {
+    BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+    String columnList = String.join(",", dataRow.columns()).replace("(", "").replace(")", "");
+    bw.append(columnList + "\n");
     for (Row row : dataRow.collectAsList()) {
-
       bw.append(row.toString().replace("[", "").replace("]", "") + "\n");
     }
-
     bw.close();
   }
 
   private static void putInBucket(String nameOfBucketFile, String nameOfLocalFile) {
-
     s3client.putObject("usdroughtsbycountybucket", nameOfBucketFile, new File(nameOfLocalFile));
-
   }
 
   public static void getFromBucket(String nameOfBucketFile, String nameOfLocalFile) {
