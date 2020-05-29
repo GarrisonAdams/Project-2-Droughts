@@ -16,10 +16,12 @@ public class Server {
         tomcat.getConnector();
         tomcat.addWebapp("/project2", new File("src/main/resources").getAbsolutePath());
         tomcat.addServlet("/project2", "DroughtLevelServlet", new DroughtLevelServlet()).addMapping("/DroughtLevelServlet");
-        tomcat.addServlet("/project2", "SpecificServlet", new SpecificServlet()).addMapping("/SpecificServlet");
-        tomcat.addServlet("/project2", "DroughtMostServlet", new SpecificServlet()).addMapping("/DroughtMostServlet");
-        tomcat.addServlet("/project2", "DroughtLevelServlet", new SpecificServlet()).addMapping("/DroughtLevelServlet");
-        tomcat.addServlet("/project2", "DroughtLevelYearServlet", new SpecificServlet()).addMapping("/DroughtLevelYearServlet");
+        tomcat.addServlet("/project2", "SpecificCountyServlet", new SpecificCountyServlet()).addMapping("/SpecificCountyServlet");
+        tomcat.addServlet("/project2", "SpecificStateServlet", new SpecificCountyServlet()).addMapping("/SpecificStateServlet");
+
+        tomcat.addServlet("/project2", "DroughtMostServlet", new DroughtMostServlet()).addMapping("/DroughtMostServlet");
+        tomcat.addServlet("/project2", "DroughtLevelServlet", new DroughtLevelServlet()).addMapping("/DroughtLevelServlet");
+        tomcat.addServlet("/project2", "DroughtLevelYearServlet", new DroughtLevelYearServlet()).addMapping("/DroughtLevelYearServlet");
 
 
 

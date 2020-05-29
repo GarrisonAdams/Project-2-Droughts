@@ -21,14 +21,12 @@ import org.group4.io.SQLRepoServlet;
 
 import static org.apache.spark.sql.functions.*;
 
-@WebServlet("/SpecificServlet")
-public class SpecificServlet extends HttpServlet {
+public class SpecificStateServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
-		resp.getWriter().println("Hello!");
-		String col = req.getParameter("DCounty");
+		String col = req.getParameter("DState");
 
 		System.out.println("Get Request = " + col);
 		resp.getWriter().println("Drought var: " + col);
