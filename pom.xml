@@ -29,11 +29,31 @@
       <version>2.4.5</version>
     </dependency>
 
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk</artifactId>
+      <version>1.11.785</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.github.cdimascio</groupId>
+      <artifactId>java-dotenv</artifactId>
+      <version>5.2.1</version>
+    </dependency>
+
+
   </dependencies>
 
   <modules>
     <module>spark-job</module>
     <module>db-job</module>
-    <module>servlet</module>
+    <module>servlet-job</module>
   </modules>
 </project>

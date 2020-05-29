@@ -1,10 +1,7 @@
 package org.group4;
 
 import java.io.IOException;
-<<<<<<< HEAD
-=======
 import java.io.PrintWriter;
->>>>>>> GA_Branch
 
 import javax.servlet.ServletException;
 //import javax.servlet.annotation.WebServlet;
@@ -12,18 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class DroughtServlet extends HttpServlet {
+public class DroughtGreaterServlet extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
 
     @Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
          
-<<<<<<< HEAD
-        resp.getWriter().println("Servlet Activated");
-        resp.getWriter().println("Entered " + req.getParameter("token"));
-
-=======
 		PrintWriter out = resp.getWriter();
         resp.setContentType("text/html");
         
@@ -38,6 +30,5 @@ public class DroughtServlet extends HttpServlet {
         out.println("<hr></hr>");
         out.print("<button type=\"button\" name=\"back\" onclick=\"history.back()\">back</button>");
         out.print("</body></html>");
->>>>>>> GA_Branch
 	}
 }

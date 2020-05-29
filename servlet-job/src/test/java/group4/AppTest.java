@@ -1,4 +1,4 @@
-package org.group4;
+package group4;
 
 import static org.junit.Assert.assertTrue;
 
