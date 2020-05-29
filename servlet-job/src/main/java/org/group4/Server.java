@@ -17,6 +17,7 @@ public class Server {
         tomcat.addWebapp("/project2", new File("src/main/resources").getAbsolutePath());
         tomcat.addServlet("/project2", "DroughtLevelServlet", new DroughtLevelServlet())
                 .addMapping("/DroughtLevelServlet");
+        tomcat.addServlet("/project2", "SpecificServlet", new SpecificServlet()).addMapping("/SpecificServlet");
 
         tomcat.start();
 

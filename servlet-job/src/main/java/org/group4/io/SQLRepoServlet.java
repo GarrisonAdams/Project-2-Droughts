@@ -33,47 +33,28 @@ public class SQLRepoServlet {
   public static String getTableHeaders(ResultSet rstmt) throws SQLException {
     String s = "";
     ResultSetMetaData rsmd = rstmt.getMetaData();
-    for (int i = 1; i < rsmd.getColumnCount(); i++) {
+    for (int i = 1; i < rsmd.getColumnCount() + 1; i++) {
       s += "<th>" + rsmd.getColumnName(i) + "</th>";
     }
     return s;
   }
 
-  public static ArrayList<String> readSQLCountyData(String table, String countyName) throws SQLException {
+  public static ArrayList<String> readSQLCountyData(String countyName) throws SQLException {
     ArrayList<String> output = new ArrayList<String>();
-    String query = "select avgdrought.county,state,avgd0,avgd1,avgd2,avgd3,avgd4,percentagewatercounty.avgpercentagewatercounty,watertolandratiocounty.avgwatertolandratio from avgdrought inner join percentagewatercounty on avgdrought.county=percentagewatercounty.county inner join watertolandratiocounty on avgdrought.county=watertolandratiocounty.county";
-    ;
+    String query = "select avgdrought.county, state, avgd0, avgd1, avgd2, avgd3, avgd4, watertolandratiocounty.avgwatertolandratio,percentagewatercounty. avgpercentagewatercounty from avgdrought inner join watertolandratiocounty on avgdrought.county=watertolandratiocounty.county inner join percentagewatercounty on avgdrought.county = percentagewatercounty.county where avgdrought.county="
+        + "'" + countyName + "'";
     try (Connection conn = DatabaseConnector.getConnection();) {
       Statement stmt = conn.createStatement();
       ResultSet rstmt = stmt.executeQuery(query);
       output.add(getTableHeaders(rstmt));
       while (rstmt.next()) {
         output.add("<td>" + rstmt.getString("county") + "</td>" + "<td>" + rstmt.getString("state") + "</td>" + "<td>"
-            + rstmt.getDouble("avgD0") + "</td>" + "<td>" + rstmt.getString("state") + "</td>" + "<td>"
-            + rstmt.getString("state") + "</td>" + "<td>" + rstmt.getString("state") + "</td>" + "<td>"
-            + rstmt.getString("state") + "</td>" + "<td>" + rstmt.getString("state") + "</td>" + "<td>"
-            + rstmt.getString("state") + "</td>" + "<td>" + rstmt.getString("state") + "</td>" + "<td>"
-            + rstmt.getString("state") + "</td>" + "<td>" + rstmt.getString("state") + "</td>" +
-
-            "");
+            + rstmt.getDouble("avgD0") + "</td>" + "<td>" + rstmt.getDouble("avgD1") + "</td>" + "<td>"
+            + rstmt.getDouble("avgD2") + "</td>" + "<td>" + rstmt.getDouble("avgD3") + "</td>" + "<td>"
+            + rstmt.getDouble("avgD4") + "</td>" + "<td>" + rstmt.getDouble("avgwatertolandratio") + "</td>" + "<td>"
+            + rstmt.getString("avgpercentagewatercounty") + "</td>");
       }
     }
     return output;
   }
-
-SELECT avgdrought.state,avgdrought.d0,avgdought.d1,avgdrought.d2,avgdrought.d3,
-  avgdrought.d4 as OwnerAddress,
-  i.url FROM
-  house AS
-  h
-INNER
-  JOIN person
-  AS p
-  ON p.personID=
-  h.personID INNER
-  JOIN images
-  AS i
-  ON i.personID=
-  p.personID GROUP
-  BY h.houseID
 }
