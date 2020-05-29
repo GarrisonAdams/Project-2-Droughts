@@ -27,7 +27,7 @@ import org.apache.spark.sql.Row;
 //import org.group4.struct.County;
 import org.group4.struct.County;
 
-public class BucketOperations {
+public class bucketOperations {
   private static Dotenv dotenv = Dotenv.load();
   private static AWSCredentials credentials = new BasicAWSCredentials(dotenv.get("S3_ACCESS_KEY"),
       dotenv.get("S3_SECRET_KEY"));

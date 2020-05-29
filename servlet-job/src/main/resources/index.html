@@ -8,13 +8,8 @@
         <h4>This is Project 2 Group 4</h4>
         <p>Return States with droughts greater then input</p>
         <br>
-      <form method = "GET" action = "WeatherServlet">
-         Hurricane Type: <input type = "text" name = "HType"/>
-         Hurricane Val: <input type = "text" name = "HVar"/>
-         Hurricane numToShow: <input type = "text" name = "HNum"/> 
-      <input type="submit" value="Search" />
-      </form>
-      <p>Return States with droughts greater then input</p>
+
+      <h4>Return States with droughts greater then input</h4>
       <form method = "GET" action = "DroughtLevelServlet">
          Drought Level > <input type = "text" name = "DLevel"/>
          Hurricane numToShow: <input type = "text" name = "ONum"/> 
@@ -22,27 +17,27 @@
       </form>
 
    </form>
-   <p>Number of given column</p>
+
+   <h4>Number of given column</h4>
    <form action="DroughtCountServlet">
       <label for="DCol">Choose a Column:</label>
       <select id="DCol" name="DCol">
-        <option value="states">States</option>
-        <option value="county">County</option>
-        <option value="timezone">Timezone</option>
+        <option value="States">States</option>
+        <option value="County">County</option>
       </select>
       Drought Count: <input type = "text" name = "DNum"/> 
       <input type="submit">
     </form> 
     
-    <p>Specific County Data</p>
+    <h4>Specific County Data</h4>
     <form action="SpecificServlet">
       County<input type = "text" name = "DCounty"/>
       <input type="submit" value="Search" />
     </form>
   
 
-    <p>Average Droughts by Category</p>
-    <form method = "GET" action = "DroughtAvgCatColServlet">
+    <h4>Average Droughts by Category</h4>
+    <form method = "GET" action = "DroughtCatServlet">
        <label for="DCat">Choose a Category</label>
        <select id="DCat" name="DCat">
          <option value="State">State</option>
@@ -53,8 +48,8 @@
     <input type="submit" value="Search" />
     </form>
 
-   <p>Average Droughts by Category and Column</p>
-      <form method = "GET" action = "GAServlet">
+   <h4>Average Droughts by Category and Drought Column</h4>
+      <form method = "GET" action = "DrughtAvgCatColServlet">
          <label for="DCat">Choose a Category</label>
          <select id="DCat" name="DCat">
            <option value="State">State</option>
@@ -72,5 +67,29 @@
       <input type="submit" value="Search" />
       </form>
 
+
+      <h4>Drought Level By County or State</h4>
+      <form method = "GET" action = "DroughtMostServlet">
+         <label for="DCat">Choose a Category</label>
+         <select id="DCat" name="DCat">
+           <option value="State">State</option>
+           <option value="County">County</option>
+         </select>    
+
+         <input type="radio" id="Most" name="DBool" value="DBool">
+         <label for="Most">Greater Then</label>
+         Number of Outputs: <input type = "text" name = "DNum"/> 
+      <input type="submit" value="Search" />
+      </form>
+      
+      <h4>Drought Level by Year</h4>
+      <form method = "GET" action = "DroughtAvgCatColServlet">   
+         <input type="radio" id="Descending" name="DBool" value="Desc">
+         <label for="Descending">Descending</label>
+         Number of Outputs: <input type = "text" name = "DNum"/> 
+      <input type="submit" value="Search" />
+      </form>          
+
+
    </body>
-</html>
+</html> 
