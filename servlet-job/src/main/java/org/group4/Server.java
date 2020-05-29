@@ -15,15 +15,28 @@ public class Server {
         tomcat.setPort(8080);
         tomcat.getConnector();
         tomcat.addWebapp("/project2", new File("src/main/resources").getAbsolutePath());
-        tomcat.addServlet("/project2", "DroughtLevelServlet", new DroughtLevelServlet()).addMapping("/DroughtLevelServlet");
-        tomcat.addServlet("/project2", "SpecificCountyServlet", new SpecificCountyServlet()).addMapping("/SpecificCountyServlet");
-        tomcat.addServlet("/project2", "SpecificStateServlet", new SpecificCountyServlet()).addMapping("/SpecificStateServlet");
+        tomcat.addServlet("/project2", "DroughtLevelServlet", new DroughtLevelServlet())
+                .addMapping("/DroughtLevelServlet");
 
-        tomcat.addServlet("/project2", "DroughtMostServlet", new DroughtMostServlet()).addMapping("/DroughtMostServlet");
-        tomcat.addServlet("/project2", "DroughtLevelServlet", new DroughtLevelServlet()).addMapping("/DroughtLevelServlet");
-        tomcat.addServlet("/project2", "DroughtLevelYearServlet", new DroughtLevelYearServlet()).addMapping("/DroughtLevelYearServlet");
+        tomcat.addServlet("/project2", "SpecificCountyServlet", new SpecificCountyServlet())
+                .addMapping("/SpecificCountyServlet");
 
+        tomcat.addServlet("/project2", "SpecificStateServlet", new SpecificStateServlet())
+                .addMapping("/SpecificStateServlet");
 
+        tomcat.addServlet("/project2", "DroughtMostServlet", new DroughtMostServlet())
+                .addMapping("/DroughtMostServlet");
+
+        tomcat.addServlet("/project2", "DroughtLevelYearServlet", new DroughtLevelYearServlet())
+                .addMapping("/DroughtLevelYearServlet");
+
+        tomcat.addServlet("/project2", "DroughtAvgCatServlet", new DroughtAvgCatServlet())
+                .addMapping("/DroughtAvgCatServlet");
+
+        tomcat.addServlet("/project2", "DroughtAvgCatColServlet", new DroughtAvgCatColServlet())
+                .addMapping("/DroughtAvgCatColServlet");
+
+        tomcat.addServlet("/project2", "DroughtPRServlet", new DroughtPRServlet()).addMapping("/DroughtPRServlet");
 
         tomcat.start();
 

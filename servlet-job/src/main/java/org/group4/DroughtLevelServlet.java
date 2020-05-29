@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.group4.io.SQLRepoServlet;
 
-@WebServlet("/DroughtLevelServlet")
 public class DroughtLevelServlet extends HttpServlet {
 	/**
 	 *

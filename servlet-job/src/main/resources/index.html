@@ -1,101 +1,98 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    <title>Project 2 Group 4</title>
-    </head>
-    
-    <body>
-        <h4>This is Project 2 Group 4</h4>
-        <p>Return States with droughts greater then input</p>
-        <br>
 
-      <h4>Return States with droughts greater then input</h4>
-      <form method = "GET" action = "DroughtLevelServlet">
-         Drought Level > <input type = "text" name = "DLevel"/>
-         Hurricane numToShow: <input type = "text" name = "ONum"/> 
-         <input type="submit" value="Search" />
-      </form>
+<head>
+  <title>Project 2 Group 4</title>
+</head>
 
-   </form>
+<body>
+  <h4>This is Project 2 Group 4</h4>
+  <p>Return States with droughts greater then input</p>
+  <br>
 
-   <h4>Number of given column</h4>
-   <form action="DroughtCountServlet">
-      <label for="DCol">Choose a Column:</label>
-      <select id="DCol" name="DCol">
-        <option value="States">States</option>
-        <option value="County">County</option>
-      </select>
-      Drought Count: <input type = "text" name = "DNum"/> 
-      <input type="submit">
-    </form> 
-    
-    <h4>Specific County Data</h4>
-    <form action="SpecificCountyServlet">
-      County<input type = "text" name = "DCounty"/>
-      <input type="submit" value="Search" />
-    </form>
-
-    <h4>Specific State Data</h4>
-    <form action="SpecificStateServlet">
-      County<input type = "text" name = "DState"/>
-      <input type="submit" value="Search" />
-    </form>
-  
-
-    <h4>Average Droughts by Category</h4>
-    <form method = "GET" action = "DroughtCatServlet">
-       <label for="DCat">Choose a Category</label>
-       <select id="DCat" name="DCat">
-         <option value="State">State</option>
-         <option value="County">County</option>
-       </select>    
-   
-       Number of Outputs: <input type = "text" name = "DNum"/> 
+  <h4>Return County with droughts greater then input</h4>
+  <form method="GET" action="DroughtLevelServlet">
+    Drought Level > <input type="text" name="DLevel" />
+    Number of Outputs: <input type="text" name="ONum" />
     <input type="submit" value="Search" />
-    </form>
+  </form>
 
-   <h4>Average Droughts by Category and Drought Column</h4>
-      <form method = "GET" action = "DrughtAvgCatColServlet">
-         <label for="DCat">Choose a Category</label>
-         <select id="DCat" name="DCat">
-           <option value="State">State</option>
-           <option value="County">County</option>
-         </select>    
+  </form>
 
-         <label for="DCol">Choose a Column:</label>
-         <select id="DCol" name="DCol">
-           <option value="1">1</option>
-           <option value="2">2</option>
-           <option value="3">3</option>
-           <option value="4">4</option>
-         </select>        
-         Number of Outputs: <input type = "text" name = "DNum"/> 
-      <input type="submit" value="Search" />
-      </form>
+  <h4>Specific County Data</h4>
+  <form action="SpecificCountyServlet">
+    County<input type="text" name="DCounty" />
+    <input type="submit" value="Search" />
+  </form>
+
+  <h4>Specific State Data</h4>
+  <form action="SpecificStateServlet">
+    County<input type="text" name="DState" />
+    <input type="submit" value="Search" />
+  </form>
 
 
-      <h4>Drought Level By County or State</h4>
-      <form method = "GET" action = "DroughtMostServlet">
-         <label for="DCat">Choose a Category</label>
-         <select id="DCat" name="DCat">
-           <option value="State">State</option>
-           <option value="County">County</option>
-         </select>    
+  <h4>Average Droughts by Category</h4>
+  <form method="GET" action="DroughtAvgCatServlet">
+    <label for="DCat">Choose a Category</label>
+    <select id="DCat" name="DCat">
+      <option value="States">State</option>
+      <option value="County">County</option>
+    </select>
 
-         <input type="radio" id="Most" name="DBool" value="DBool">
-         <label for="Most">Greater Then</label>
-         Number of Outputs: <input type = "text" name = "DNum"/> 
-      <input type="submit" value="Search" />
-      </form>
-      
-      <h4>Drought Level by Year</h4>
-      <form method = "GET" action = "DroughtAvgCatColServlet">   
-         <input type="radio" id="Descending" name="DBool" value="Desc">
-         <label for="Descending">Descending</label>
-         Number of Outputs: <input type = "text" name = "DNum"/> 
-      <input type="submit" value="Search" />
-      </form>          
+    Number of Outputs: <input type="text" name="DNum" />
+    <input type="submit" value="Search" />
+  </form>
+
+  <h4>Average Droughts by Category and Drought Column</h4>
+  <form method="GET" action="DroughtAvgCatColServlet">
+    <label for="DCat">Choose a Category</label>
+    <select id="DCat" name="DCat">
+      <option value="mostDroughtsStates">State</option>
+      <option value="mostDroughtsCounty">County</option>
+    </select>
+
+    <label for="DCol">Choose a Column:</label>
+    <select id="DCol" name="DCol">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    Number of Outputs: <input type="text" name="DNum" />
+    <input type="submit" value="Search" />
+  </form>
 
 
-   </body>
-</html> 
+  <h4>Water Percentage or Ratio By County or State</h4>
+  <form method="GET" action="DroughtPRServlet">
+    <label for="DPR">Choose a Category</label>
+    <select id="DPR" name="DPR">
+      <option value="percentageWaterCounty">Percentage Water for County</option>
+      <option value="percentageWaterState">Percentage Water for State</option>
+      <option value="waterToLandRatioCounty">Water To Land Ratio for County</option>
+      <option value="waterToLandRatioState">Water To Land Ratio for State</option>
+    </select>
+
+    <input type="radio" id="Descending" name="DBoolPR" value="desc">
+    <label for="Descending">Descending</label>
+    <input type="radio" id="Chronological" name="DBoolPR" value="asc">
+    <label for="Ascending">Ascending</label><br><br>
+    Number of Outputs: <input type="text" name="DNum" />
+    <input type="submit" value="Search" />
+  </form>
+
+  <h4>Drought Level by Year</h4>
+  <form method="GET" action="DroughtLevelYearServlet">
+    <input type="radio" id="Descending" name="DBool" value="Desc">
+    <label for="Descending">Descending</label>
+    <input type="radio" id="Chronological" name="DBool" value="Chronological">
+    <label for="Chronological">Chronological</label>
+    <input type="submit" value="Show" />
+  </form>
+
+
+</body>
+
+</html>
