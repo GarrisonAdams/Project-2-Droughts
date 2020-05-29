@@ -27,10 +27,15 @@ public class SQLRepo {
     BufferedReader br = new BufferedReader(fr);
 
     connection = DatabaseConnector.getConnection();
+    connection.setAutoCommit(false);
 
+    Statement statement = connection.createStatement();
     String[] columnList = br.readLine().split(",");
-    stmt = connection.prepareStatement(createTableQuery(columnList, tableName));
-    stmt.executeUpdate();
+
+    statement.execute("drop table if exists " + tableName + " cascade");
+    statement.execute(createTableQuery(columnList, tableName));
+    // stmt = connection.prepareStatement(createTableQuery(columnList, tableName));
+    // stmt.executeUpdate();
 
     String line;
 
@@ -41,8 +46,15 @@ public class SQLRepo {
       stmt.executeUpdate();
 
     }
-    br.close();
 
+    // try {
+    // stmt.executeBatch();
+    // } catch (SQLException e) {
+    // System.out.println("Error message: " + e.getMessage());
+    // return;
+    // }
+    br.close();
+    connection.commit();
   }
 
   public static String createTableQuery(String[] columnList, String tableName) {
@@ -57,7 +69,9 @@ public class SQLRepo {
         s.append(columnList[i] + " " + getColumnDataType(columnList[i]) + ",\n");
       }
     }
-    System.out.println(s);
+    // System.out.println(s);
+    // O'Brien
+    // County,IA,19141,37.417007963594976,17.094880546075082,10.01230944254835,3.499783845278725,0.0
     return s.toString();
   }
 
@@ -69,20 +83,20 @@ public class SQLRepo {
     for (int i = 0; i < rowEntry.length; i++) {
       if (i == rowEntry.length - 1) {
         if (getColumnDataType(columnList[i]).equals("VARCHAR") || getColumnDataType(columnList[i]).equals("DATE")) {
-          s.append("'" + rowEntry[i] + "'" + ");");
+          s.append("'" + rowEntry[i].replace("'", "") + "'" + ");");
         } else {
-          s.append(rowEntry[i] + ");");
+          s.append(rowEntry[i].replace("'", "") + ");");
         }
       } else {
         if (getColumnDataType(columnList[i]).equals("VARCHAR") || getColumnDataType(columnList[i]).equals("DATE")) {
-          s.append("'" + rowEntry[i] + "'" + ", ");
+          s.append("'" + rowEntry[i].replace("'", "") + "'" + ", ");
         } else {
-          s.append(rowEntry[i] + ", ");
+          s.append(rowEntry[i].replace("'", "") + ", ");
         }
 
       }
     }
-    System.out.println(s);
+    // System.out.println(s);
     return s.toString();
   }
 
