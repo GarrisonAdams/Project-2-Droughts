@@ -15,10 +15,11 @@ public class Server {
         tomcat.setPort(8080);
         tomcat.getConnector();
         tomcat.addWebapp("/project2", new File("src/main/resources").getAbsolutePath());
-        tomcat.addServlet("/project2", "DroughtLevelServlet", new DroughtLevelServlet())
-                .addMapping("/DroughtLevelServlet");
+        tomcat.addServlet("/project2", "DroughtLevelServlet", new DroughtLevelServlet()).addMapping("/DroughtLevelServlet");
         tomcat.addServlet("/project2", "SpecificServlet", new SpecificServlet()).addMapping("/SpecificServlet");
         tomcat.addServlet("/project2", "DroughtMostServlet", new SpecificServlet()).addMapping("/DroughtMostServlet");
+        tomcat.addServlet("/project2", "DroughtLevelServlet", new SpecificServlet()).addMapping("/DroughtLevelServlet");
+        tomcat.addServlet("/project2", "DroughtLevelYearServlet", new SpecificServlet()).addMapping("/DroughtLevelYearServlet");
 
 
 
