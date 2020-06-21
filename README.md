@@ -5,6 +5,10 @@ This is Group 4's project 2 repository.  Members are Mason, Jacob, Garrison, and
 ### <Theme Goes Here>
 ####  <Theme Description Goes Here>
 
+## Usage
+> mvn clean packge
+### to run sub modules:
+> mvn exec:java -pl [module artifactId] -Dexec.mainClass=[module mainclass]
 
 ## Data Pipeline
 

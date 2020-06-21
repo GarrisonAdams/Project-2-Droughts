@@ -1,6 +1,5 @@
 package org.group4;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,25 +7,25 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-//import org.group4.struct.County;
+import io.github.cdimascio.dotenv.Dotenv;
 
-public class bucketOperations {
+
+
+public class BucketOperations {
   private static Dotenv dotenv = Dotenv.load();
   private static AWSCredentials credentials = new BasicAWSCredentials(dotenv.get("S3_ACCESS_KEY"),
       dotenv.get("S3_SECRET_KEY"));
@@ -48,7 +47,6 @@ public class bucketOperations {
 
     for (Row row : dataRow.collectAsList()) 
     {
-
       bw.append(row.toString().replace("[","").replace("]","") + "\n");
     }
 
